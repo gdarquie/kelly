@@ -1,21 +1,62 @@
 <script>
-    import { Button, Checkbox } from 'svelte-mui';
-    let checked = true;
+    import { Textfield, Button } from 'svelte-mui';
+    let login='';
+    let password='';
 </script>
 
-<div>
-    This is a login page
-    <input type="text"/>
-    <input type="password"/>
-    <button>Submit</button>
-</div>
+<style>
+    .login-wrapper {
+        width: 800px;
+        margin: auto;
+    }
 
-<Checkbox bind:checked>Checkbox</Checkbox>
-<Button
-outlined
-shaped
-color="Red"
-on:click={() => { checked = !checked }}
->
-Inverse
-</Button>
+    p {
+        text-align: center;
+    }
+
+    .submit-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    .textfields-wrapper {
+        margin:auto;
+        max-width: 550px;
+    }
+
+</style>
+
+<div class="login-wrapper">
+
+    <p>Welcome to the admin page</p>
+
+    <div class="textfields-wrapper">
+        <Textfield
+            autocomplete="off"
+            label="name"
+            required
+            message="write your login"
+            class="login-input login-input-name"
+            bind:value={login}
+        />
+
+        <Textfield
+            autocomplete="off"
+            label="password"
+            required
+            message="write your password"
+            class="login-input login-input-password"
+            type="password"
+            bind:value={password}
+        />
+    </div>
+
+    <div class="submit-wrapper">
+        <Button class="submit" outlined color='#db5462'>Submit</Button>
+    </div>
+
+    <div>
+        {login}{password}
+    </div>
+
+</div>
