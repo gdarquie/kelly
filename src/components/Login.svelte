@@ -1,7 +1,30 @@
 <script>
-    import { Textfield, Button } from 'svelte-mui';
-    let login='';
-    let password='';
+    import {Textfield, Button} from 'svelte-mui';
+    import Indexation from './Indexation.svelte';
+    import Import from "./Import.svelte";
+
+    let login = '';
+    let password = '';
+    let result = null;
+    let connected = false;
+    let mc3Url = 'http://127.0.0.1:8000/';
+
+
+    async function postLogin() {
+
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({
+                "email": login,
+                "password": password,
+            })
+        });
+
+        const json = await response.json()
+        result = JSON.stringify(json)
+    }
+
 </script>
 
 <style>
@@ -52,11 +75,14 @@
     </div>
 
     <div class="submit-wrapper">
-        <Button class="submit" outlined color='#db5462'>Submit</Button>
+        <Button class="submit" on:click={postLogin} outlined color='#db5462'>Submit</Button>
     </div>
 
-    <div>
-        {login}{password}
-    </div>
+    <Indexation/>
+    <Import/>
+
+<!--    <div>-->
+<!--        {login}{password}-->
+<!--    </div>-->
 
 </div>
