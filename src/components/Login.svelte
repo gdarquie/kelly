@@ -9,10 +9,11 @@
     let connected = false;
     let mc3Url = 'http://127.0.0.1:8000/';
 
-
     async function postLogin() {
 
-        const response = await fetch('/login', {
+        var cookies = document.cookie.split(';');
+        console.log(cookies);
+        const response = await fetch(mc3Url+'login', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
