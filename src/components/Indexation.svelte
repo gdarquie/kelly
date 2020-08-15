@@ -1,14 +1,15 @@
 <script>
     import { Button } from 'svelte-mui';
     let result = null
-    let mc3Url = 'http://127.0.0.1:8000/';
+    let mc3Url = 'http://localhost:8000/';
 
     async function postIndexation() {
 
         const response = await fetch(mc3Url+'api/indexations', {
             method: 'POST',
             headers:{'content-type': 'application/json'},
-            body: JSON.stringify({})
+            body: JSON.stringify({}),
+            credentials: "include"
         });
 
         const json = await response.json()

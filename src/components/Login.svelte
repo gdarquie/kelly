@@ -7,17 +7,31 @@
     let password = '';
     let result = null;
     let connected = false;
-    let mc3Url = 'http://127.0.0.1:8000/';
+    let mc3Url = 'http://localhost:8000/';
 
     async function postLogin() {
-        
         const response = await fetch(mc3Url+'login', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
-            body: JSON.stringify({
-                "email": login,
-                "password": password,
-            })
+            body: JSON.stringify(
+                {
+                    "email": login,
+                    "password": password,
+                }
+            ),
+            credentials: "include"
+            // credentials: "same-origin"
+        });
+
+        const json = await response.json()
+        result = JSON.stringify(json)
+    }
+
+    async function postLogout() {
+        const response = await fetch(mc3Url+'logout', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({}),
         });
 
         const json = await response.json()
@@ -74,7 +88,11 @@
     </div>
 
     <div class="submit-wrapper">
-        <Button class="submit" on:click={postLogin} outlined color='#db5462'>Submit</Button>
+        <Button class="submit" on:click={postLogin} outlined color='#db5462'>Log in</Button>
+    </div>
+
+    <div class="submit-wrapper">
+        <Button class="submit" on:click={postLogout} outlined color='#db5462'>Log out</Button>
     </div>
 
     <Indexation/>
